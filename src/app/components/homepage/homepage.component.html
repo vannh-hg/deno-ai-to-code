@@ -1,0 +1,228 @@
+<section class="top-bar">
+  <div class="container top-bar__content">
+    <div class="top-bar__socials" aria-label="Social channels">
+      <button *ngFor="let social of socials" class="pill" type="button">{{ social }}</button>
+    </div>
+    <p class="top-bar__message">Summer sale discount off 70%</p>
+    <div class="top-bar__selectors">
+      <button class="selector" type="button" aria-label="Change currency">
+        <img src="https://www.figma.com/api/mcp/asset/c5c8d92e-4b92-43b7-b125-6390f12040ec" alt="US flag" />
+        <span>USD $ | United States</span>
+        <svg viewBox="0 0 12 12" aria-hidden="true">
+          <path d="M2 4l4 4 4-4" />
+        </svg>
+      </button>
+      <button class="selector" type="button" aria-label="Change language">
+        <span>English</span>
+        <svg viewBox="0 0 12 12" aria-hidden="true">
+          <path d="M2 4l4 4 4-4" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="logo" href="#" aria-label="Ecomus home">
+      Ecomus
+    </a>
+
+    <nav class="nav">
+      <a *ngFor="let link of navLinks" href="#">
+        <span>{{ link.label }}</span>
+        <svg *ngIf="link.hasDropdown" viewBox="0 0 12 12" aria-hidden="true">
+          <path d="M2 4l4 4 4-4" />
+        </svg>
+      </a>
+    </nav>
+
+    <div class="header-actions">
+      <button *ngFor="let action of headerActions" type="button" [attr.aria-label]="action.label">
+        <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+          <path *ngIf="action.icon === 'search'" d="M21 21l-4.35-4.35" />
+          <circle *ngIf="action.icon === 'search'" cx="11" cy="11" r="7.5" />
+
+          <path *ngIf="action.icon === 'user'" d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4z" />
+          <path *ngIf="action.icon === 'user'" d="M4 18c0-3.31 3.04-6 8-6s8 2.69 8 6v2H4z" />
+
+          <path *ngIf="action.icon === 'heart'" d="M12 20s-7.5-4.35-7.5-10A4.5 4.5 0 0 1 12 6.09 4.5 4.5 0 0 1 19.5 10c0 5.65-7.5 10-7.5 10z" />
+
+          <path *ngIf="action.icon === 'bag'" d="M6 7h12l1 11H5z" />
+          <path *ngIf="action.icon === 'bag'" d="M9 7a3 3 0 1 1 6 0" />
+        </svg>
+        <span *ngIf="action.badge" class="badge">{{ action.badge }}</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="homepage">
+  <section class="hero" [style.backgroundImage]="'url(' + hero.image + ')'">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <h1>
+          <span *ngFor="let line of hero.heading">{{ line }}</span>
+        </h1>
+        <p>{{ hero.subheading }}</p>
+        <button class="btn btn--primary" type="button">
+          {{ hero.cta }}
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M5 3l5 5-5 5" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+      <div class="hero__dots" aria-hidden="true">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="category-grid container">
+    <article *ngFor="let tile of categoryTiles" class="category-card">
+      <img [src]="tile.image" [alt]="tile.label" loading="lazy" />
+      <button type="button">{{ tile.button }}</button>
+    </article>
+  </section>
+
+  <section class="denim container">
+    <div class="denim__content">
+      <p class="eyebrow">{{ denimHighlight.eyebrow }}</p>
+      <h2>
+        <span *ngFor="let line of denimHighlight.title">{{ line }}</span>
+      </h2>
+      <p class="description">{{ denimHighlight.copy }}</p>
+      <button class="btn btn--ghost" type="button">
+        {{ denimHighlight.cta }}
+      </button>
+    </div>
+    <div class="denim__image">
+      <img [src]="denimHighlight.image" alt="Denim collection" loading="lazy" />
+    </div>
+  </section>
+
+  <section class="best-seller container">
+    <div class="section-heading">
+      <h2>Best Seller</h2>
+      <div class="slider-arrows">
+        <button type="button" aria-label="Previous slide">‹</button>
+        <button type="button" aria-label="Next slide" class="filled">›</button>
+      </div>
+    </div>
+    <div class="product-grid">
+      <article *ngFor="let product of bestSellers" class="product-card">
+        <div class="product-card__media">
+          <img [src]="product.image" [alt]="product.title" loading="lazy" />
+          <span *ngIf="product.saleBadge" class="product-card__badge">{{ product.saleBadge }}</span>
+          <div *ngIf="product.countdown" class="product-card__countdown">
+            <span *ngFor="let chunk of product.countdown">{{ chunk }}</span>
+          </div>
+        </div>
+        <a href="#" class="product-card__title">{{ product.title }}</a>
+        <p class="product-card__price">{{ product.priceLabel }}</p>
+        <div class="color-swatches">
+          <button
+            *ngFor="let color of product.colors"
+            type="button"
+            class="color-swatches__swatch"
+            [class.color-swatches__swatch--border]="color.needsBorder"
+            [style.background]="color.value"
+          ></button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="spotlight container">
+    <article *ngFor="let banner of spotlightBanners" class="spotlight-card">
+      <img [src]="banner.image" [alt]="banner.title" loading="lazy" />
+      <div class="spotlight-card__text">
+        <h3>{{ banner.title }}</h3>
+        <p>{{ banner.subtitle }}</p>
+        <button class="link-button" type="button">
+          Shop collection
+          <svg viewBox="0 0 12 12" aria-hidden="true">
+            <path d="M4 3l3 3-3 3" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </article>
+  </section>
+
+  <section class="store container">
+    <header>
+      <h2>Visit our store</h2>
+      <div class="tabs" role="tablist">
+        <button
+          *ngFor="let tab of storeTabs; let i = index"
+          type="button"
+          role="tab"
+          [attr.aria-selected]="i === activeStoreIndex"
+          [class.active]="i === activeStoreIndex"
+          (click)="setActiveStore(i)"
+        >
+          {{ tab.city }}
+        </button>
+      </div>
+    </header>
+    <div class="store__panel">
+      <div class="store__details">
+        <h3>{{ activeStore.title }}</h3>
+        <p *ngFor="let line of activeStore.address">{{ line }}</p>
+        <p *ngFor="let hour of activeStore.hours" class="muted">{{ hour }}</p>
+      </div>
+      <div class="store__image">
+        <img [src]="activeStore.image" [alt]="activeStore.title" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <section class="brand-strip container" aria-label="Featured brands">
+    <img *ngFor="let logo of brandLogos" [src]="logo" alt="Brand partner" loading="lazy" />
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer__main">
+    <div class="footer__brand">
+      <div class="logo">Ecomus</div>
+      <p>Address: 1234 Fashion Street, Suite 567, New York, NY 10001</p>
+      <p>Email: {{ 'info@fashionshop.com'}}</p>
+      <p>Phone: (212) 555-1234</p>
+
+      <div class="footer__socials">
+        <button *ngFor="let social of socials" type="button">{{ social }}</button>
+      </div>
+    </div>
+
+    <div class="footer__links" *ngFor="let column of footerColumns">
+      <h4>{{ column.title }}</h4>
+      <a *ngFor="let link of column.links" href="#">{{ link }}</a>
+    </div>
+
+    <div class="footer__signup">
+      <h4>Sign Up for Email</h4>
+      <p>Sign up to get first dibs on new arrivals, sales, exclusive content, events and more!</p>
+      <form (submit)="onSubscribe($event)">
+        <input type="email" placeholder="Enter your email...." aria-label="Email address" />
+        <button type="submit">
+          Subscribe
+          <svg viewBox="0 0 12 12" aria-hidden="true">
+            <path d="M4 3l3 3-3 3" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>© 2025 Ecomus Store. All Rights Reserved</p>
+    <div class="payments">
+      <img *ngFor="let icon of paymentIcons" [src]="icon" alt="Payment method" loading="lazy" />
+    </div>
+  </div>
+</footer>
+
+
